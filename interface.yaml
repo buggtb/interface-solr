@@ -1,0 +1,4 @@
+name: solr-interface
+summary: Interface for relating to Apache Solr
+version: 1
+maintainer: "Tom Barber <tom@spicule.co.uk>"
