@@ -66,3 +66,5 @@ class SolrClient(RelationBase):
                 'host={host} port={port} core={core}',
                 **data)
         return None
+
+    #def upload_schema(self):
