@@ -38,7 +38,7 @@ class SolrClient(RelationBase):
         """
         return self.get_remote('port', 8983)
 
-    @hook('{requires:solr-interface}-relation-{joined,changed}')
+    @hook('{requires:solr}-relation-{joined,changed}')
     def changed(self):
         log("solr-interface-joined")
         self.set_state('{relation_name}.connected')
@@ -46,7 +46,7 @@ class SolrClient(RelationBase):
             log("solr-interface-available")
             self.set_state('{relation_name}.available')
 
-    @hook('{requires:solr-interface}-relation-{broken,departed}')
+    @hook('{requires:solr}-relation-{broken,departed}')
     def departed(self):
         log("solr-interface-departed")
         self.remove_state('{relation_name}.connected')

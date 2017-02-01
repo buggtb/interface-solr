@@ -20,19 +20,19 @@ from charmhelpers.core.hookenv import log
 class SolrProvides(RelationBase):
     scope = scopes.SERVICE
 
-    @hook('{provides:solr-interface}-relation-joined')
+    @hook('{provides:solr}-relation-joined')
     def joined(self):
         log("solr-interface-joined")
         conversation = self.conversation()
         conversation.set_state('{relation_name}.core.requested')
 
-    @hook('{provides:solr-interface}-relation-{broken,departed}')
+    @hook('{provides:solr}-relation-{broken,departed}')
     def departed(self):
         log("solr-interface-broken")
         conversation = self.conversation()
         conversation.remove_state('{relation_name}.core.requested')
 
-    @not_unless('{provides:solr-interface}.core.requested')
+    @not_unless('{provides:solr}.core.requested')
     def provide_core(self, service, host, port, core):
         log("solr-interface-core-requested")
         conversation = self.conversation(scope=service)
