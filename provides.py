@@ -18,19 +18,17 @@ from charms.reactive import not_unless
 from charmhelpers.core.hookenv import log
 
 class SolrProvides(RelationBase):
-    scope = scopes.SERVICE
+    scope = scopes.UNIT
 
     @hook('{provides:solr}-relation-joined')
     def joined(self):
         log("solr-interface-joined")
-        conversation = self.conversation()
-        conversation.set_state('{relation_name}.core.requested')
+        self.set_state('{relation_name}.core.requested')
 
     @hook('{provides:solr}-relation-{broken,departed}')
     def departed(self):
         log("solr-interface-broken")
-        conversation = self.conversation()
-        conversation.remove_state('{relation_name}.core.requested')
+        self.remove_state('{relation_name}.core.requested')
 
     @not_unless('{provides:solr}.core.requested')
     def provide_core(self, service, host, port, core):
